@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "wildfire_visualization"
+  site-url: "https://mmwitters.github.io/wildfire_visualization"
+  description: "wildfires project with nbdev"
+  repo-branch: main
+  repo-url: "https://github.com/mmwitters/wildfire_visualization"
