@@ -30,7 +30,7 @@ def update_graph(year_chosen):
                      size=df_year['FIRE_SIZE'],
                      color=df_year['FIRE_SIZE'],
                      color_continuous_scale='YlOrRd',
-                     scope='usa')
+                     scope='usa').update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     return figure
 
 # Run the app
