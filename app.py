@@ -11,17 +11,30 @@ app = Dash()
 
 # App layout
 app.layout = [
-    html.Div(children='My First App with Data and a Graph'),
-    dash_table.DataTable(data=df.to_dict('records'), page_size=10),
-    dcc.Graph(figure=px.scatter_geo(data_frame=df,
-                     lat=df['LATITUDE'],
-                     lon=df['LONGITUDE'], 
-                     size=df['FIRE_SIZE'],
-                     color=df['FIRE_SIZE'],
-                     color_continuous_scale='YlOrRd',
-                     scope='usa'))
+    html.Div(children='My First App with Data, Graph, and Controls'),
+    html.Hr(),
+    dcc.RadioItems(options=['2018', '2019', '2020'], value='2018', id='controls-and-radio-item'),
+    dcc.Graph(figure={}, id='controls-and-graph')
 ]
+
+# Add controls to build the interaction
+@callback(
+    Output(component_id='controls-and-graph', component_property='figure'),
+    Input(component_id='controls-and-radio-item', component_property='value')
+)
+def update_graph(year_chosen):
+    df_year = df[df['FIRE_YEAR'] == int(year_chosen)]
+    figure=px.scatter_geo(data_frame=df_year,
+                     lat=df_year['LATITUDE'],
+                     lon=df_year['LONGITUDE'], 
+                     size=df_year['FIRE_SIZE'],
+                     color=df_year['FIRE_SIZE'],
+                     color_continuous_scale='YlOrRd',
+                     scope='usa')
+    return figure
 
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)
+
+
