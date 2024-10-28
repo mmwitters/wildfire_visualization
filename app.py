@@ -10,17 +10,17 @@ df = pd.read_csv('/Users/madelinewitters/wildfire_data/test_dataset.csv')
 app = Dash()
 
 # App layout
-app.layout = [
-    html.Div(children='My First App with Data, Graph, and Controls'),
-    html.Hr(),
-    dcc.RadioItems(options=['2018', '2019', '2020'], value='2018', id='controls-and-radio-item'),
-    dcc.Graph(figure={}, id='controls-and-graph')
+app.layout = [ #TODO: eventually change year options to slider (need to figure out large data issue first)
+    dcc.Graph(figure={}, id='controls-and-graph'),
+    html.Br(),
+    html.Br(),
+    dcc.Slider(2018, 2020, 1, value=2019, marks={2018: '2018', 2019:'2019', 2020:'2020'}, id='year-slider'),
 ]
 
 # Add controls to build the interaction
 @callback(
     Output(component_id='controls-and-graph', component_property='figure'),
-    Input(component_id='controls-and-radio-item', component_property='value')
+    Input(component_id='year-slider', component_property='value')
 )
 def update_graph(year_chosen):
     df_year = df[df['FIRE_YEAR'] == int(year_chosen)]
