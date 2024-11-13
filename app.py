@@ -10,7 +10,7 @@ df = pd.read_csv('/Users/madelinewitters/wildfire_data/test_dataset.csv')
 app = Dash()
 
 # App layout
-app.layout = [ #TODO: eventually change year options to slider (need to figure out large data issue first)
+app.layout = [
     dcc.Graph(figure={}, id='controls-and-graph'),
     html.Br(),
     html.Br(),
